@@ -1,6 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { environment } from '../environments/environment.prod';
 import { LocalStorageService } from 'angular-2-local-storage';
@@ -27,7 +28,9 @@ export class AppComponent {
   constructor(
     private http: HttpClient, 
     private router: Router,
-    private storage: LocalStorageService ){
+    private storage: LocalStorageService,
+    private activatedRoute: ActivatedRoute
+    ){
   }
 
 
@@ -60,19 +63,38 @@ private strRandom(length: number) {
   }
   return result;
 }
-  //inputs = [0.0114, 0.457, 0.648, 0.0000169, 0.212, -5.762, 0.0552];
+  ngOnInit(){
+    this.activatedRoute.queryParams.subscribe(params => {
+      if (params.code) {
+          this.getAccessToken(params.code, params.state);
+      }
+  });
+  }
+  getAccessToken(code: string, state: string) {
+    if (state !== this.storage.get('state')) {
+        alert('Invalid state');
+        return;
+    }}
   onSearch(){
     const id = this.searchForm.value.search;
 
     const headers = new HttpHeaders({
       'Content-type' : 'application/json',
-      'Authorization' : `Bearer ${this.token}`
+      'Authorization' : `Bearer ${this.storage.get('token')}`
     });
     //get() recieves an observable, need to do subscribe
     this.http.get(this.baseURL + id, {headers: headers}).subscribe((res) => {
-      console.log(res);
+       var data = [res['acousticness'],res['danceability'],res['energy'], res['instrumentalness'],res['liveness'],res['loudness'],res['speechiness']];
+       if(this.storage.get('data') !== null){
+        this.storage.remove('data');
+       }
+       this.storage.set('data', data);
+       console.log(data);
     })
-    this.router.navigate(['/radar'])
+    this.router.navigate(['/radar']).then(() => {
+      window.location.reload(false);
+    });
+
   }
 
 }

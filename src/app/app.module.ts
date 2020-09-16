@@ -8,11 +8,13 @@ import { LocalStorageModule } from 'angular-2-local-storage';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { RadarChartComponent } from './radar-chart/radar-chart.component';
+import { AuthComponent } from './auth/auth.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    RadarChartComponent
+    RadarChartComponent,
+    AuthComponent
   ],
   imports: [
     BrowserModule,

@@ -1,5 +1,5 @@
 import { Component, OnInit, Input} from '@angular/core';
-
+import { LocalStorageService } from 'angular-2-local-storage';
 
 @Component({
   selector: 'app-radar-chart',
@@ -8,13 +8,15 @@ import { Component, OnInit, Input} from '@angular/core';
 })
 export class RadarChartComponent implements OnInit {
 
-  @Input() inputs: [];
+ 
   public radarChartLabels = ['acousticness', 'danceability', 'energy', 'instrumentalness', 'liveness', 'loudness', 'speechiness'];
   public radarChartData = [
-    {data: this.inputs.entries, label: '2017'}
+    {data: this.storage.get('data'), label: '2017'}
   ];
   public radarChartType = 'radar';
-  constructor() { }
+  constructor(
+    private storage: LocalStorageService
+  ) { }
 
   ngOnInit(): void {
   }
