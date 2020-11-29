@@ -22,6 +22,7 @@ export class RadarChartComponent implements OnInit {
   
 
   ngOnInit(): void {
+    
   }
 
 }

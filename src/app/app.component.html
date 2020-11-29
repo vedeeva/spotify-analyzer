@@ -26,18 +26,20 @@
       </ul>
   </div>
 </nav>
-<div class="container">
+<div class="container mt-5">
   <div class="card">
     <div class="card-body">
       <hr>
-      <form (ngSubmit)="onSearch()" #f="ngForm">
+      <form (ngSubmit)="onSearch(buttonType)" #f="ngForm">
         <div class="form-group">
           <input type="any" class="form-control" id="search" placeholder="Search by ID.." ngModel name="search">
     </div>
-    <button type="submit" class="btn btn-primary">Radar Chart</button>
-    <button type="submit" class="btn btn-primary">Bar Chart</button>
+    <button type="submit" class="btn btn-primary" (click)="onSearch('Radar Chart')">Radar Chart</button>
+    <button type="button" class="btn btn-primary" (click)="onSearch('Bar Chart')">Bar Chart</button>
     </form>
     <router-outlet></router-outlet>
   </div>
 </div>
+<h3 *ngIf="notLoggedIn"> Login to view</h3>
 </div>
+

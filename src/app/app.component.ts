@@ -23,7 +23,8 @@ export class AppComponent {
   
   token = 'jvbfihbe';
   baseURL = 'https://api.spotify.com/v1/audio-features/';
-  trackURL = 'https://api.spotify.com/v1/tracks/'
+  trackURL = 'https://api.spotify.com/v1/tracks/';
+  notLoggedIn = false;
 
   
   constructor(
@@ -54,6 +55,7 @@ goToLoginPage() {
       'redirect_uri=' + environment.oauthCallbackUrl,
   ];
   window.location.href = environment.oauthLoginUrl + '?' + params.join('&');
+  this.notLoggedIn = false;
 }
 private strRandom(length: number) {
   let result = '';
@@ -76,7 +78,7 @@ private strRandom(length: number) {
         alert('Invalid state');
         return;
     }}
-  onSearch(){
+  onSearch(buttonType){
     const id = this.searchForm.value.search;
     this.storage.remove('data');
     const headers = new HttpHeaders({
@@ -92,15 +94,26 @@ private strRandom(length: number) {
       this.storage.set('trackInfo', trackInfo);
       
     });
+    if(buttonType==="Radar Chart"){
      return this.http.get(this.baseURL + id, {headers: headers}).subscribe((res) => {
-       var data = [res['acousticness'],res['danceability'],res['energy'], res['instrumentalness'],res['liveness'],res['loudness'],res['speechiness']];
+       var data = [res['acousticness'],res['danceability'],res['energy'], res['instrumentalness'],res['liveness'],res['loudness']+8,res['speechiness']];
        this.storage.set('data', data);
        console.log(data);
        this.router.navigate(['/radar']).then(() => {
         window.location.reload(true);
       });
     })
-    
+  }
+  else{
+    return this.http.get(this.baseURL + id, {headers: headers}).subscribe((res) => {
+      var data = [res['acousticness'],res['danceability'],res['energy'], res['instrumentalness'],res['liveness'],res['loudness']+8,res['speechiness']];
+      this.storage.set('data', data);
+      console.log(data);
+      this.router.navigate(['/bar']).then(() => {
+       window.location.reload(true);
+     });
+   })
+  }
 
   }
 

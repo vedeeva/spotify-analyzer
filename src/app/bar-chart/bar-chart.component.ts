@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { LocalStorageService } from 'angular-2-local-storage';
 
 @Component({
   selector: 'app-bar-chart',
@@ -7,7 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BarChartComponent implements OnInit {
 
-  constructor() { }
+  constructor(private storage: LocalStorageService) { }
+  public barChartLabels = ['acousticness', 'danceability', 'energy', 'instrumentalness', 'liveness', 'loudness', 'speechiness'];
+
+  
+  public barChartData = [
+    {data: this.storage.get('data'), label: this.storage.get('trackInfo')}
+
+  ];
+  public barChartType = 'bar';
 
   ngOnInit(): void {
   }
