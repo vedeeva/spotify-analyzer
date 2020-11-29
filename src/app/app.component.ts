@@ -23,6 +23,7 @@ export class AppComponent {
   
   token = 'jvbfihbe';
   baseURL = 'https://api.spotify.com/v1/audio-features/';
+  trackURL = 'https://api.spotify.com/v1/tracks/'
 
   
   constructor(
@@ -77,23 +78,29 @@ private strRandom(length: number) {
     }}
   onSearch(){
     const id = this.searchForm.value.search;
-
+    this.storage.remove('data');
     const headers = new HttpHeaders({
       'Content-type' : 'application/json',
       'Authorization' : `Bearer ${this.storage.get('token')}`
     });
+    //get data about a track
     //get() recieves an observable, need to do subscribe
-    this.http.get(this.baseURL + id, {headers: headers}).subscribe((res) => {
+    this.http.get(this.trackURL + id, {headers: headers}).subscribe((res) => {
+      let track =  res['name'];
+      let artist = res['artists'];
+      let trackInfo = track + ' by '+ artist[0].name;
+      this.storage.set('trackInfo', trackInfo);
+      
+    });
+     return this.http.get(this.baseURL + id, {headers: headers}).subscribe((res) => {
        var data = [res['acousticness'],res['danceability'],res['energy'], res['instrumentalness'],res['liveness'],res['loudness'],res['speechiness']];
-       if(this.storage.get('data') !== null){
-        this.storage.remove('data');
-       }
        this.storage.set('data', data);
        console.log(data);
+       this.router.navigate(['/radar']).then(() => {
+        window.location.reload(true);
+      });
     })
-    this.router.navigate(['/radar']).then(() => {
-      window.location.reload(false);
-    });
+    
 
   }
 

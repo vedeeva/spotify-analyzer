@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
   <a class="navbar-brand"
-     href="#">Navbar</a>
+     href="#">Spotify Tracks Analyzer</a>
   <button class="navbar-toggler"
           type="button"
           data-toggle="collapse"
@@ -23,24 +23,19 @@
               <a class="nav-link"
                  (click)="goToLoginPage()">Login</a>
           </li>
-          <li class="nav-item">
-              <a class="nav-link"
-                 href="#">Register</a>
-          </li>
       </ul>
   </div>
 </nav>
-
 <div class="container">
   <div class="card">
     <div class="card-body">
-      <h1>Spotify Tracks Analyser</h1>
       <hr>
       <form (ngSubmit)="onSearch()" #f="ngForm">
         <div class="form-group">
           <input type="any" class="form-control" id="search" placeholder="Search by ID.." ngModel name="search">
     </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary">Radar Chart</button>
+    <button type="submit" class="btn btn-primary">Bar Chart</button>
     </form>
     <router-outlet></router-outlet>
   </div>

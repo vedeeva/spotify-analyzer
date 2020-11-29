@@ -9,12 +9,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { RadarChartComponent } from './radar-chart/radar-chart.component';
 import { AuthComponent } from './auth/auth.component';
+import { BarChartComponent } from './bar-chart/bar-chart.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     RadarChartComponent,
-    AuthComponent
+    AuthComponent,
+    BarChartComponent
   ],
   imports: [
     BrowserModule,

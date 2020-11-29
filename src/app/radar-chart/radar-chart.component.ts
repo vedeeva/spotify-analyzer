@@ -8,15 +8,18 @@ import { LocalStorageService } from 'angular-2-local-storage';
 })
 export class RadarChartComponent implements OnInit {
 
- 
-  public radarChartLabels = ['acousticness', 'danceability', 'energy', 'instrumentalness', 'liveness', 'loudness', 'speechiness'];
-  public radarChartData = [
-    {data: this.storage.get('data'), label: '2017'}
-  ];
-  public radarChartType = 'radar';
   constructor(
     private storage: LocalStorageService
   ) { }
+  public radarChartLabels = ['acousticness', 'danceability', 'energy', 'instrumentalness', 'liveness', 'loudness', 'speechiness'];
+
+  
+  public radarChartData = [
+    {data: this.storage.get('data'), label: this.storage.get('trackInfo')}
+
+  ];
+  public radarChartType = 'radar';
+  
 
   ngOnInit(): void {
   }
