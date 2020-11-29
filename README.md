@@ -1,6 +1,8 @@
 # SpotifyApi
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.0.3.
+## Demo of the Project
+<img src='http://g.recordit.co/cROXVnhYEY.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 ## Development server
 
